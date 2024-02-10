@@ -1,10 +1,10 @@
 // server.ts
-import { createUser } from 'handlers/create-user'
-import { deleteUser } from 'handlers/delete-user'
-import { getSingleUser } from 'handlers/get-single-user'
-import { getUsers } from 'handlers/get-users'
-import { notFound } from 'handlers/not-found'
-import { updateUser } from 'handlers/update-user'
+import { createUser } from './handlers/create-user'
+import { deleteUser } from './handlers/delete-user'
+import { getSingleUser } from './handlers/get-single-user'
+import { getUsers } from './handlers/get-users'
+import { notFound } from './handlers/not-found'
+import { updateUser } from './handlers/update-user'
 import { createServer, IncomingMessage, ServerResponse } from 'http'
 
 const server = createServer((req: IncomingMessage, res: ServerResponse) => {

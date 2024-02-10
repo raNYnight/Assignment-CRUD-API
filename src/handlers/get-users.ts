@@ -1,4 +1,4 @@
-import { users } from 'data'
+import { users } from '../data'
 import { IncomingMessage, ServerResponse } from 'http'
 
 export function getUsers(req: IncomingMessage, res: ServerResponse) {

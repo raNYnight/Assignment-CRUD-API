@@ -1,4 +1,4 @@
-import { users } from 'data'
+import { users } from '../data'
 import { IncomingMessage, ServerResponse } from 'http'
 import { User } from 'types/types'
 import { v4 as uuidv4 } from 'uuid'
