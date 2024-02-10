@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && node dist/index.js",
+    "start:dev": "nodemon src/index.ts",
+    "start:prod": "npm run build && node dist/index.js",
+    "start:multi": "npm run build && node dist/load-balancer.js",
     "build": "npx tsc",
-    "dev": "nodemon src/index.ts",
     "lint": "eslint src/**/*.ts",
     "format": "eslint src/**/*.ts --fix"
   },
