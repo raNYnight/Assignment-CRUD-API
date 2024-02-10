@@ -6,6 +6,9 @@ import { getUsers } from './handlers/get-users'
 import { notFound } from './handlers/not-found'
 import { updateUser } from './handlers/update-user'
 import { createServer, IncomingMessage, ServerResponse } from 'http'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const server = createServer((req: IncomingMessage, res: ServerResponse) => {
   const { method, url } = req
