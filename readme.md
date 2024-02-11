@@ -1,130 +1,108 @@
 # API Documentation
 
-## Base URL
-
-The base URL for all API endpoints is: `http://localhost:{PORT}`
-
 ## Endpoints
 
-### GET /api/users
+1. Implemented endpoint `api/users`:
 
-Get a list of all users.
+   - **GET** `api/users`
 
-#### Response
+     - Returns all user records.
+     - Response:
+       - Status Code: 200
+       - Body:
+         ```
+         [
+             {
+                 "id": "73d1123c-230b-42eb-93b8-f51496922ca3",
+                 "username": "Ilya",
+                 "age": "25",
+                 "hobbies": ["Movies", "Poker"]
+             },
+             {
+                 "id": "302e2131-43d6-4c92-b088-d1c9aaf54cdb",
+                 "username": "Den",
+                 "age": "15",
+                 "hobbies": ["Horrors"]
+             }
+         ]
+         ```
 
-- Status Code: 200
-- Content Type: application/json
+   - **GET** `api/users/{userId}`
 
-```
-[
+     - Returns the user record with the specified `userId` if it exists.
+     - Parameters:
+       - `userId` (string, required) - The unique identifier of the user.
+     - Responses:
+       - Status Code: 200
+         - Body: User record with `id === userId`
+       - Status Code: 400
+         - Body: Corresponding message if `userId` is invalid (not a valid UUID)
+       - Status Code: 404
+         - Body: Corresponding message if record with `id === userId` doesn't exist
 
-    {
-        "id": "73d1123c-230b-42eb-93b8-f51496922ca3",
-        "username": "Ilya",
-        "age": "25",
-        "hobbies": "Movies"
-    },
-    {
-        "id": "302e2131-43d6-4c92-b088-d1c9aaf54cdb",
-        "username": "Den",
-        "age": "15",
-        "hobbies": "Horrors"
-    }
-]
-```
+   - **POST** `api/users`
 
-### GET /api/users/{userId}
+     - Creates a new user record and stores it in the database.
+     - Request Body:
+       ```
+       {
+           "username": "John",
+           "age": 30,
+           "hobbies": ["Reading", "Sports"]
+       }
+       ```
+     - Responses:
+       - Status Code: 201
+         - Body: Newly created user record
+       - Status Code: 400
+         - Body: Corresponding message if request body does not contain required fields
 
-- Get a specific user by their ID.
+   - **PUT** `api/users/{userId}`
 
-#### Parameters
+     - Updates an existing user record with the specified `userId`.
+     - Parameters:
+       - `userId` (string, required) - The unique identifier of the user.
+     - Request Body:
+       ```
+       {
+           "username": "John",
+           "age": 35,
+           "hobbies": ["Reading", "Sports", "Cooking"]
+       }
+       ```
+     - Responses:
+       - Status Code: 200
+         - Body: Updated user record
+       - Status Code: 400
+         - Body: Corresponding message if `userId` is invalid (not a valid UUID)
+       - Status Code: 404
+         - Body: Corresponding message if record with `id === userId` doesn't exist
 
-- {userId}: The ID of the user to retrieve.
+   - **DELETE** `api/users/{userId}`
+     - Deletes an existing user record with the specified `userId` from the database.
+     - Parameters:
+       - `userId` (string, required) - The unique identifier of the user.
+     - Responses:
+       - Status Code: 204
+         - No response body
+       - Status Code: 400
+         - Body: Corresponding message if `userId` is invalid (not a valid UUID)
+       - Status Code: 404
+         - Body: Corresponding message if record with `id === userId` doesn't exist
 
-#### Response
+## User Object
 
-- Status Code: 200
-- Content Type: application/json
+Users are stored as objects with the following properties:
 
-```
- {
-     "id": "302e2131-43d6-4c92-b088-d1c9aaf54cdb",
-     "username": "Den",
-     "age": "15",
-     "hobbies": "Horrors"
- }
-```
+- `id` (string, uuid): Unique identifier generated on the server side.
+- `username` (string, required): User's name.
+- `age` (number, required): User's age.
+- `hobbies` (array of strings or empty array, required): User's hobbies.
 
-### POST /api/users
+## Error Handling
 
-- Create a new user.
+- Requests to non-existing endpoints (e.g., `some-non/existing/resource`) should be handled. The server should respond with a status code 404 and a corresponding human-friendly message.
 
-#### Request Body
+## Environment Configuration
 
-- Content Type: application/json
-
-```
-{
-  "username": "John Doe",
-  "age": 25,
-  "hobbies": ["Reading", "Gardening"]
-}
-```
-
-#### Response
-
-- Status Code: 201
-- Content Type: application/json
-
-```
-{
-  "id": "3",
-  "username": "John Doe",
-  "age": 25,
-  "hobbies": ["Reading", "Gardening"]
-}
-```
-
-### PUT /api/users/{userId}
-
-Update an existing user.
-
-#### Parameters
-
-- {userId}: The ID of the user to update.
-
-#### Request Body
-
-Content Type: application/json
-
-```
-{
-  "username": "Updated Name",
-  "age": 30,
-  "hobbies": ["Painting", "Cooking"]
-}
-```
-
-#### Response
-
-- Status Code: 200
-- Content Type: application/json
-
-```
-{
-  "id": "3",
-  "username": "Updated Name",
-  "age": 30,
-  "hobbies": ["Painting", "Cooking"]
-}
-```
-
-### DELETE /api/users/{userId}
-
-Delete a user.
-
-#### Parameters
-
-- {userId}: The ID of the user to delete.
-  ####Response
-- Status Code: 204
+The value of the `port` on which the application is running should be stored in the `.env` file.
