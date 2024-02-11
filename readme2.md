@@ -102,7 +102,6 @@ Users are stored as objects with the following properties:
 ## Error Handling
 
 - Requests to non-existing endpoints (e.g., `some-non/existing/resource`) should be handled. The server should respond with a status code 404 and a corresponding human-friendly message.
-- Errors on the server side that occur during the processing of a request should be handled and processed correctly. The server should respond with a status code 500 and a corresponding human-friendly message.
 
 ## Environment Configuration
 
