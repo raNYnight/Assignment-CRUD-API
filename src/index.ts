@@ -10,7 +10,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-const server = createServer((req: IncomingMessage, res: ServerResponse) => {
+export const server = createServer((req: IncomingMessage, res: ServerResponse) => {
   const { method, url } = req
 
   if (method === 'GET' && url === '/api/users') {

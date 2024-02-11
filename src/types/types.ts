@@ -3,7 +3,7 @@ import { IncomingMessage, ServerResponse } from 'http'
 export interface User {
   id: string
   username: string
-  age: number
+  age: number | string
   hobbies: string[]
 }
 
